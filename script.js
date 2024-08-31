@@ -1,4 +1,4 @@
-let totalAmount = 0;
+ let totalAmount = 0;
 let srNoCounter = 1;
 let editRow = null;
 
