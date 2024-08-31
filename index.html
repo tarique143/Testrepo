@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Form Section -->
+        <form id="bill-form" class="form-section">
+            <div class="form-group">
+                <label for="product-name">Product:</label>
+                <input type="text" id="product-name" required>
+            </div>
+            <div class="form-group">
+                <label for="custom-heading">Custom Heading:</label>
+                <input type="text" id="custom-heading" placeholder="Enter custom heading">
+            </div>
+            <div class="form-group">
+                <label for="custom-text">Custom Text (e.g., Hall, Kitchen):</label>
+                <input type="text" id="custom-text">
+            </div>
+            <div class="form-group">
+                <label for="sq-feet-length">Sq Feet Length:</label>
+                <input type="number" id="sq-feet-length">
+            </div>
+            <div class="form-group">
+                <label for="sq-feet-width">Sq Feet Width:</label>
+                <input type="number" id="sq-feet-width">
+            </div>
+            <div class="form-group">
+                <label for="rate">Rate (₹):</label>
+                <input type="number" id="rate" required>
+            </div>
+            <div class="form-group">
+                <label for="paid-amount">Paid Amount (₹):</label>
+                <input type="number" id="paid-amount" oninput="calculateBalance()">
+            </div>
+            <div class="button-group">
+                <button type="button" onclick="addItem()">Add Item</button>
+                <button type="button" id="print-button" onclick="preparePrint()">Print Bill</button>
+            </div>
+        </form>
+
+        <!-- Bill Details Section -->
+        <div id="bill-details" class="bill-section">
+            <div class="logo">
+                <img src="logo.jpg" alt="Logo">
+            </div>
+            <h2 id="bill-heading">Bill Details</h2>
+            <table id="bill-table">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Product</th>
+                        <th>Sq Feet Length</th>
+                        <th>Sq Feet Width</th>
+                        <th>Total Sq Feet</th>
+                        <th>Rate (₹)</th>
+                        <th>Total Amount (₹)</th>
+                        <th class="action-column">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div class="totals">
+                <h3>Total Amount: ₹<span id="total-amount">0.00</span></h3>
+                <h3>Paid Amount: ₹<span id="display-paid-amount">0.00</span></h3>
+                <h3>Remaining Balance: ₹<span id="remaining-amount">0.00</span></h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
