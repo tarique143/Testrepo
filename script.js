@@ -1,4 +1,4 @@
-let totalAmount = 0;
+ let totalAmount = 0;
 let srNoCounter = 1;
 let editRow = null;
 
@@ -41,7 +41,7 @@ function addItem() {
                 <td>${totalSqFeet.toFixed(2)}</td>
                 <td>₹${rate.toFixed(2)}</td>
                 <td>₹${totalAmountForItem.toFixed(2)}</td>
-                <td class="action-column">
+                <td class="action-column no-print">
                     <button onclick="editItem(this)">Edit</button>
                     <button onclick="deleteItem(this)">Delete</button>
                 </td>
@@ -69,8 +69,8 @@ function editItem(button) {
 
 function deleteItem(button) {
     const row = button.parentElement.parentElement;
-    const amount = parseFloat(row.cells[6].textContent.replace('₹', ''));
-    totalAmount -= amount;
+    const amountToDelete = parseFloat(row.cells[6].textContent.replace('₹', ''));
+    totalAmount -= amountToDelete;
     document.getElementById('total-amount').textContent = `${totalAmount.toFixed(2)}`;
     row.remove();
 }
@@ -78,22 +78,43 @@ function deleteItem(button) {
 function calculateBalance() {
     const paidAmount = parseFloat(document.getElementById('paid-amount').value) || 0;
     const remainingAmount = totalAmount - paidAmount;
-    document.getElementById('remaining-amount').textContent = `${remainingAmount.toFixed(2)}`;
-    document.getElementById('display-paid-amount').textContent = `${paidAmount.toFixed(2)}`;
+    document.getElementById('display-paid-amount').textContent = paidAmount.toFixed(2);
+    document.getElementById('remaining-amount').textContent = remainingAmount.toFixed(2);
 }
 
 function preparePrint() {
-    const billTable = document.getElementById('bill-table').outerHTML;
-    const printWindow = window.open('', '', 'width=800,height=600');
-    printWindow.document.write('<html><head><title>Print Bill</title><link rel="stylesheet" href="style.css"></head><body>');
-    printWindow.document.write('<div class="container">');
-    printWindow.document.write(document.querySelector('.logo').outerHTML);
-    printWindow.document.write('<h2>Bill Details</h2>');
-    printWindow.document.write(billTable);
-    printWindow.document.write(`<h3>Total Amount: ₹<span>${totalAmount.toFixed(2)}</span></h3>`);
-    printWindow.document.write(`<h3>Paid Amount: ₹<span>${document.getElementById('display-paid-amount').textContent}</span></h3>`);
-    printWindow.document.write(`<h3>Remaining Balance: ₹<span>${document.getElementById('remaining-amount').textContent}</span></h3>`);
-    printWindow.document.write('</div>');
-    printWindow.document.close();
-    printWindow.print();
+    // Get the custom heading text
+    const customHeading = document.getElementById('custom-heading').value;
+    const billHeading = document.getElementById('bill-heading');
+
+    // Set the custom heading text
+    if (customHeading) {
+        billHeading.textContent = customHeading;
+    }
+
+    // Hide the 'Actions' column and 'bill-form' before printing
+    const actionColumns = document.querySelectorAll('.action-column');
+    actionColumns.forEach(column => column.style.display = 'none');
+
+    const billForm = document.getElementById('bill-form');
+    billForm.style.display = 'none';
+
+    // Hide the column header for Actions
+    const actionHeader = document.querySelector('th.action-column');
+    if (actionHeader) {
+        actionHeader.style.display = 'none';
+    }
+
+    // Print only the bill-details section
+    window.print();
+
+    // Restore the 'Actions' column and 'bill-form' after printing
+    actionColumns.forEach(column => column.style.display = '');
+    if (actionHeader) {
+        actionHeader.style.display = '';
+    }
+    billForm.style.display = '';
+
+    // Restore the original heading text
+    billHeading.textContent = 'Bill Details';
 }
