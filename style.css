@@ -1,3 +1,4 @@
+ /* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -7,30 +8,16 @@ body {
 }
 
 .container {
-    max-width: 100%;
-    padding: 10px;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    margin: 10px auto;
-}
-
-.form-section, .bill-section {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo img {
-    max-width: 100%;
-    height: auto;
 }
 
 h1, h2, h3 {
     text-align: center;
-    margin-bottom: 15px;
 }
 
 .form-group {
@@ -40,8 +27,6 @@ h1, h2, h3 {
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 14px;
 }
 
 .form-group input {
@@ -50,88 +35,91 @@ h1, h2, h3 {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    font-size: 14px;
-}
-
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-button {
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-}
-
-button:hover {
-    background-color: #0056b3;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-    font-size: 14px;
 }
 
 th.action-column, td.action-column {
-    text-align: center;
+    display: table-cell;
 }
 
-.totals {
-    text-align: right;
-    margin-top: 20px;
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 5px;
 }
 
-.totals h3 {
-    font-size: 14px;
+button:hover {
+    background-color: #0056b3;
 }
 
-@media print {
-    .no-print {
-        display: none;
-    }
-}
-
-@media (max-width: 768px) {
+/* Styles for Mobile View */
+@media only screen and (max-width: 600px) {
     .container {
-        padding: 5px;
+        width: 95%;
+        margin: 10px auto;
+        padding: 10px;
     }
 
-    .form-group label, .form-group input, button, h2, h3 {
+    table, th, td {
         font-size: 14px;
     }
 
     button {
         width: 100%;
-        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .form-group input {
         padding: 10px;
         font-size: 14px;
     }
+}
 
-    .totals h3 {
-        font-size: 14px;
+/* Hide Elements When Printing */
+@media print {
+    .no-print, .action-column {
+        display: none !important;
     }
 
-    table {
-        font-size: 12px;
+    body {
+        background-color: white;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    h1, h2, h3 {
+        font-size: 18px;
     }
 
     th, td {
-        padding: 8px;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+    button {
+        display: none;
     }
 }
