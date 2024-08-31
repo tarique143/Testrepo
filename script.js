@@ -1,4 +1,4 @@
- let totalAmount = 0;
+let totalAmount = 0;
 let srNoCounter = 1;
 let editRow = null;
 
@@ -9,7 +9,7 @@ function addItem() {
     const rate = parseFloat(document.getElementById('rate').value);
 
     if (productName && rate > 0) {
-        let totalSqFeet = 1;  // Default to 1 if dimensions are not provided
+        let totalSqFeet = 1; // Default to 1 if dimensions are not provided
         if (!isNaN(sqFeetLength) && !isNaN(sqFeetWidth)) {
             totalSqFeet = sqFeetLength * sqFeetWidth;
         }
@@ -41,7 +41,7 @@ function addItem() {
                 <td>${totalSqFeet.toFixed(2)}</td>
                 <td>₹${rate.toFixed(2)}</td>
                 <td>₹${totalAmountForItem.toFixed(2)}</td>
-                <td class="action-column no-print">
+                <td class="action-column">
                     <button onclick="editItem(this)">Edit</button>
                     <button onclick="deleteItem(this)">Delete</button>
                 </td>
@@ -87,9 +87,11 @@ function preparePrint() {
     const customHeading = document.getElementById('custom-heading').value;
     const billHeading = document.getElementById('bill-heading');
 
-    // Set the custom heading text
+    // Set the custom heading text if provided, otherwise use default
     if (customHeading) {
         billHeading.textContent = customHeading;
+    } else {
+        billHeading.textContent = 'Bill Details';
     }
 
     // Hide the 'Actions' column and 'bill-form' before printing
@@ -116,5 +118,7 @@ function preparePrint() {
     billForm.style.display = '';
 
     // Restore the original heading text
-    billHeading.textContent = 'Bill Details';
+    if (!customHeading) {
+        billHeading.textContent = 'Bill Details';
+    }
 }
